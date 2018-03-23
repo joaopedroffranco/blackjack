@@ -1,17 +1,17 @@
 /* @flow */
-const CardType = require('./CardType');
+const CardConstants = require('./CardConstants');
 
 class Card {
-    number: CardType.CardNumber;
-    suit: CardType.CardSuit;
+    number: CardConstants.CardNumberType;
+    suit: CardConstants.CardSuitType;
 
-    constructor(number: CardType.CardNumber, suit: CardType.CardSuit) {
+    constructor(number: CardConstants.CardNumberType, suit: CardConstants.CardSuitType) {
         this.number = number;
         this.suit = suit;
     }
 
     value(): number {
-        return CardType.Values[this.number];
+        return CardConstants.Values[this.number];
     }
 };
 

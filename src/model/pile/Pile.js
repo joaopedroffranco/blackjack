@@ -1,6 +1,6 @@
 /* @flow */
 const Card = require('../card/Card');
-const CardType = require('../card/CardType');
+const CardConstants = require('../card/CardConstants');
 
 class Pile {
     cards: Card[];
@@ -15,7 +15,7 @@ class Pile {
 
 	hasAce(): boolean {
 		return !!this.cards.find((card) => {
-			return card.number === CardType.Number.ACE;
+			return card.number === CardConstants.Number.ACE;
 		});
 	}
 

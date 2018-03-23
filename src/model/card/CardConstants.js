@@ -23,8 +23,8 @@ const Number = {
 }
 const Values = [1,2,3,4,5,6,7,8,9,10,10,10,10];
 
-type CardSuit = '♦' | '♠' | '♣' | '♥';
-type CardNumber = 0|1|2|3|4|5|6|7|8|9|10|11|12;
+type CardSuitType = '♦' | '♠' | '♣' | '♥';
+type CardNumberType = 0|1|2|3|4|5|6|7|8|9|10|11|12;
 
 module.exports = {
     Suit,
