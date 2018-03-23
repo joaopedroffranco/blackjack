@@ -10,7 +10,7 @@ class Card {
         this.suit = suit;
     }
 
-    value() {
+    value(): number {
         return CardType.Values[this.number];
     }
 };

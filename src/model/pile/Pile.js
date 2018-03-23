@@ -9,12 +9,12 @@ class Pile {
 		this.cards = [];
 	}
 
-	add(card: Card) {
+	add(card: Card): void {
 		this.cards.push(card);
 	}
 
 	hasAce(): boolean {
-		return this.cards.find((card) => {
+		return !!this.cards.find((card) => {
 			return card.number === CardType.Number.ACE;
 		});
 	}
@@ -31,7 +31,7 @@ class Pile {
 		return sum;
 	}
 
-    sumPile() {
+    sumPile(): number {
         return this.usableAce() ? this.sum() + 10 : this.sum();
     }
 };
