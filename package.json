@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "babel-node ./src/index.js",
+    "compiler": "babel src/ -d lib/",
+    "flow": "flow",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/joaopedroffranco/blackjack/issues"
   },
-  "homepage": "https://github.com/joaopedroffranco/blackjack#readme"
+  "homepage": "https://github.com/joaopedroffranco/blackjack#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.68.0"
+  }
 }

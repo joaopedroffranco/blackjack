@@ -57,3 +57,12 @@ typings/
 # dotenv environment variables file
 .env
 
+build
+package
+.DS_Store
+
+.idea
+
+# VS Code files
+.vscode/
+
