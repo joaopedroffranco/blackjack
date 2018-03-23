@@ -1,6 +1,7 @@
 const Pile = require('./model/pile/Pile');
 const Card = require('./model/card/Card');
 const CardType = require('./model/card/CardType');
+const Deck = require('./model/deck/Deck');
 
 const pile = new Pile();
 const ace = new Card(CardType.Number.ACE, CardType.Suit.SPADES);
@@ -12,3 +13,7 @@ pile.add(two);
 pile.add(king);
 
 console.log(pile.sumPile());
+
+const deck = new Deck();
+
+console.log(deck);

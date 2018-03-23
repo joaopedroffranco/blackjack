@@ -1,9 +1,9 @@
 /* flow */
 const Suit = {
-    SPADES: '♦',
-    DIAMONDS: '♠',
+    SPADES: '♠',
+    HEARTS: '♥',
     CLUBS: '♣',
-    HEARTS: '♥'
+    DIAMONDS: '♦'
 }
 
 const Number = {
