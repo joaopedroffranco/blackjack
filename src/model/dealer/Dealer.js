@@ -11,10 +11,11 @@ class Dealer {
     pile: Pile;
 
     constructor() {
-        this.cards = this.generate();
         this.discards = [];
         this.pile = new Pile();
-		this.cards = this.shuffle(this.cards);
+
+        const allCards = this.generate();
+		this.cards = this.shuffle(allCards);
     }
 
     /* actions */
