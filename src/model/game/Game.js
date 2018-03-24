@@ -41,7 +41,7 @@ class Game {
 			this.player.hit(this.dealer);
 
 			/* 50% de chance dele parar (falso learning) */
-			const shouldStand = !!!Math.floor(Math.random() * 2)
+			const shouldStand = this.player.isPlaying() && !!!Math.floor(Math.random() * 2)
 			if (shouldStand) this.player.stand();
 
 			/* fim de jogo do jogador */
