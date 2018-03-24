@@ -20,10 +20,10 @@ class Pile {
 	}
 
     usableAce(): boolean {
-		return this.hasAce() && this.sum() + 10 <= 21;
+		return this.hasAce() && this.sumPile() + 10 <= 21;
 	}
 
-	sum(): number {
+	sumPile(): number {
 		let sum = 0;
 		this.cards.forEach((card) => {
 			sum += card.value();
@@ -31,9 +31,19 @@ class Pile {
 		return sum;
 	}
 
-    sumPile(): number {
-        return this.usableAce() ? this.sum() + 10 : this.sum();
-    }
+    sum(): number {
+        return this.usableAce() ? this.sumPile() + 10 : this.sumPile();
+	}
+	
+	toString() {
+		let string = '{';
+		this.cards.forEach((card) => {
+			string = string.concat(` ${card.toString()} `);
+		});
+		string = string.concat('}');
+		string = string.concat(` | ${this.sum()}`);
+		return string
+	}
 };
 
 module.exports = Pile;

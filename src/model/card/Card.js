@@ -13,6 +13,14 @@ class Card {
     value(): number {
         return CardConstants.Values[this.number];
     }
+
+    name(): string {
+        return CardConstants.Names[this.number];
+    }
+
+    toString() {
+        return `${this.name()}${this.suit}`;
+    }
 };
 
 module.exports = Card;

@@ -22,6 +22,7 @@ const Number = {
     KING: 12
 }
 const Values = [1,2,3,4,5,6,7,8,9,10,10,10,10];
+const Names = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
 
 type CardSuitType = '♦' | '♠' | '♣' | '♥';
 type CardNumberType = 0|1|2|3|4|5|6|7|8|9|10|11|12;
@@ -29,5 +30,6 @@ type CardNumberType = 0|1|2|3|4|5|6|7|8|9|10|11|12;
 module.exports = {
     Suit,
     Number,
-    Values
+    Values,
+    Names
 }
