@@ -1,12 +1,16 @@
-const Pile = require('./model/pile/Pile');
-const Card = require('./model/card/Card');
-const CardConstants = require('./model/card/CardConstants');
 const Player = require('./model/player/Player');
-const Game = require('./model/game/Game');
+const Table = require('./model/table/Table');
 
 /* Player */
 const jao = new Player(1, 'Jão');
+const kiq = new Player(2, 'Kiq');
 
-/* Game */
-const game = new Game(jao)
-game.start();
+const elements = [0, 1, 2, 3, 4];
+let players = [];
+elements.forEach((element) => {
+    players.push(new Player(element, `Jogador ${element+1}`));
+})
+
+/* Table */
+const table = new Table(players);
+table.start();

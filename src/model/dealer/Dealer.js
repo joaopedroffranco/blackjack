@@ -12,10 +12,7 @@ class Dealer {
 
     constructor() {
         this.discards = [];
-        this.pile = new Pile();
-
-        const allCards = this.generate();
-		this.cards = this.shuffle(allCards);
+		this.cards = this.generate();
     }
 
     /* actions */
@@ -23,7 +20,11 @@ class Dealer {
 	start() {
 		this.shown = this.cards.pop();
         this.hidden = this.cards.pop();
+
+        this.pile = new Pile();
         this.pile.add(this.shown);
+
+        this.cards = this.shuffle(this.cards);
     }
     
     showHiddenCard() {

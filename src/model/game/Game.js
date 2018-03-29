@@ -1,25 +1,19 @@
 /* @flow */
 const Player = require('../player/Player');
 const Dealer = require('../dealer/Dealer');
-const GameConstants = require('./GameConstants');
 
 class Game {
     player: Player;
 	dealer: Dealer;
 	winner: Player | Dealer;
-	state: GameConstants.GameStateType;
 
-	constructor(player: Player) {
+	constructor(player: Player, dealer: Dealer) {
 		this.player = player;
-
-		const dealer = new Dealer();
 		this.dealer = dealer;
-
-		this.state = GameConstants.State.RUNNING;
 	}
 
 	start() {
-		console.log('------ START ------');
+		console.log(`------ START GAME ${this.player.name.toUpperCase()} ------`);
 		/* Na primeira rodada, dealer pega duas cartas para si */
 		this.dealer.start();
 
