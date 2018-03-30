@@ -4,6 +4,7 @@ const TableConstants = require('../model/table/TableConstants');
 const Player = require('../model/player/Player');
 const Dealer = require('../model/dealer/Dealer');
 const Card = require('../model/card/Card');
+const Game = require('../model/game/Game');
 
 class GameFormatter {
 
@@ -23,7 +24,7 @@ class GameFormatter {
     }
     
     formatPlayers(players: Player[]) {
-        const formattedCards = [];
+        const formattedPlayers = [];
         players.forEach((player) => {
             formattedPlayers.push(this.formatPlayer(player));
         });
@@ -33,8 +34,8 @@ class GameFormatter {
 
     formatPlayer(player: Player) {
         return {
-            pile: this.formatCards(player.cards),
-            state: plater.state
+            pile: this.formatCards(player.pile.cards),
+            state: player.state
         }
     }
     
@@ -54,7 +55,7 @@ class GameFormatter {
     formatCards(cards: Card[]) {
         const formattedCards = [];
         cards.forEach((card) => {
-            formattedCards.push(formatCard(card));
+            formattedCards.push(this.formatCard(card));
         });
 
         return formattedCards;

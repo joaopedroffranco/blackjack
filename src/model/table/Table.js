@@ -26,7 +26,7 @@ class Table {
 		this.state = TableConstants.State.REGISTERING;
 	}
 
-	register(playerName: String, callback: (success: boolean, message: string) => void) {
+	register(playerName: string, callback: (success: boolean, message: string) => void) {
 		if (this.state === TableConstants.State.REGISTERING) {
 			console.log(`REGISTERING PLAYER: ${playerName}`);
 			const player = new Player(playerName);
@@ -57,13 +57,11 @@ class Table {
 		this.gameServer.updatePlayers();
 	}
 
-	processAction(playerName: string, action: PlayerStateType, callback: (success: boolean, message: string) => void) {
+	processAction(playerName: string, action: PlayerConstants.PlayerStateType, callback: (success: boolean, message: string) => void) {
 		if (this.state === TableConstants.State.PLAYING) {
 			if (playerName === this.games[this.currentGame].player.name) {
 				const game = this.games[this.currentGame];
 				const playerState = game.processAction(action);
-
-				console(true, 'action processed');
 
 				this.gameServer.updatePlayers();
 				if (playerState === PlayerConstants.State.STOOD || playerState === PlayerConstants.State.BUST) {

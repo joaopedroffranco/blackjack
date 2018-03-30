@@ -8,14 +8,14 @@ class GameServer {
 
 	constructor() {
 		this.connections = [];
-		const table = new Table(1);
+		const table = new Table(1, this);
 
 		const server = net.createServer((connection) => { 
 			console.log('A player entered');
 			this.connections.push(new GameConnection(connection, table));
 		 });
 
-		 server.listen(3000, () => { 
+		 server.listen('3000', () => { 
 			console.log('Dealer is waiting for players...');
 		 });
 	}
