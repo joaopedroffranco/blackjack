@@ -1,7 +1,8 @@
 const net = require('net');
 const Table = require('../model/table/Table');
 const PlayerConstants = require('../model/player/PlayerConstants');
- 
+const GameFormatter = require('./GameFormatter');
+
 class GameConnection {
 	connection;
 	table: Table
@@ -61,6 +62,9 @@ class GameConnection {
 		}
 	}
 
+	sendTableState() {
+		this.connection.write(GameFormatter.tableToJson(this.table));
+	}
 }
 
 module.exports = GameConnection;

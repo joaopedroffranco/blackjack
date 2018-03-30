@@ -20,9 +20,9 @@ class GameServer {
 		 });
 	}
 
-	sendTable() {
+	updatePlayers() {
 		this.connections.forEach((connection) => {
-			connection.write(this.table);
+			connection.sendTableState();
 		})
 	}
 

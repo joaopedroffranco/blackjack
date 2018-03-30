@@ -4,6 +4,7 @@ const PlayerConstants = require('../player/PlayerConstants');
 const Player = require('../player/Player');
 const Dealer = require('../dealer/Dealer');
 const Game = require('../game/Game');
+const GameServer = require('../../game/GameServer');
 
 class Table {
 	state: TableConstants.StateType;
@@ -11,8 +12,10 @@ class Table {
 	maxNumberOfPlayers: number;
     games: Game[];
 	dealer: Dealer;
+	gameServer: GameServer;
 
-	constructor(maxNumberOfPlayers: number) {
+	constructor(maxNumberOfPlayers: number, gameServer: GameServer) {
+		this.gameServer = gameServer;
 		this.games = [];
 		this.dealer = new Dealer();
 		this.maxNumberOfPlayers = maxNumberOfPlayers;
@@ -50,7 +53,8 @@ class Table {
 		this.games.forEach((game) => {
 			game.start();
 		});
-		// reportTable
+		
+		this.gameServer.updatePlayers();
 	}
 
 	processAction(playerName: string, action: PlayerStateType, callback: (success: boolean) => void) {
@@ -61,7 +65,7 @@ class Table {
 
 				console(true, 'action processed');
 
-				// reportTable
+				this.gameServer.updatePlayers();
 
 				if (playerState === PlayerConstants.State.STOOD || playerState === PlayerConstants.State.BUST) {
 					changePlayer();
@@ -85,7 +89,7 @@ class Table {
 		if (currentGame == this.games.length) {
 			finishGame();
 		} else {
-			// reportTable
+			this.gameServer.updatePlayers();
 		}
 	}
 
@@ -94,7 +98,7 @@ class Table {
 			game.finishGame();
 		});
 		this.state = TableConstants.State.FINISHED;
-		//reportTable
+		this.gameServer.updatePlayers();
 
 		this.initializeTable();
 	}
