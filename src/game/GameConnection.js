@@ -4,7 +4,8 @@ const PlayerConstants = require('../model/player/PlayerConstants');
  
 class GameConnection {
 	connection;
-	table: Table
+	table: Table;
+	playerName: string;
 
 	constructor(connection, table: Table) {
 		this.connection = connection;
@@ -40,21 +41,31 @@ class GameConnection {
 	process(action: PlayerConstants.ActionType, json: JSON) {
 		switch (action) {
 		case PlayerConstants.Action.REGISTER:
-			const playerName = json.player.name || 'Jogador';
-			this.table.register(playerName, (success, message) => {
-				this.connection.write(`Player ${playerName} ${message}`);
+			this.playerName = json.player.name || 'Jogador';
+			this.table.register(this.playerName, (success, message) => {
+				if (success) {
+					this.connection.write(`Player ${this.playerName}: ${message}`);
+				} else {
+					this.connection.write(`Player ${this.playerName}: fail to ${message}`);
+				}
 			});
 			break;
-		case PlayerConstants.Action.REGISTER:
-			const playerName = json.player.name || 'Jogador';
-			this.table.register(playerName, (success, message) => {
-				this.connection.write(`Player ${playerName} ${message}`);
+		case PlayerConstants.Action.HIT:
+			this.table.processAction(this.playerName, action, (success, message) => {
+				if (success) {
+					this.connection.write(`Player ${this.playerName}: ${message}`);
+				} else {
+					this.connection.write(`Player ${this.playerName}: fail to ${message}`);
+				}
 			});
 			break;
-		case PlayerConstants.Action.REGISTER:
-			const playerName = json.player.name || 'Jogador';
-			this.table.register(playerName, (success, message) => {
-				this.connection.write(`Player ${playerName} ${message}`);
+		case PlayerConstants.Action.STAND:
+			this.table.processAction(this.playerName, action, (success, message) => {
+				if (success) {
+					this.connection.write(`Player ${this.playerName}: ${message}`);
+				} else {
+					this.connection.write(`Player ${this.playerName}: fail to ${message}`);
+				}
 			});
 			break;
 		default: break;

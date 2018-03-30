@@ -53,22 +53,17 @@ class Table {
 		// reportTable
 	}
 
-	processAction(playerName: string, action: PlayerStateType, callback: (success: boolean) => void) {
+	processAction(playerName: string, action: PlayerStateType, callback: (success: boolean, message: string) => void) {
 		if (this.state === TableConstants.State.PLAYING) {
-			if (playerName === games[this.currentGame].player.name) {
-				const game = games[this.currentGame];
+			if (playerName === this.games[this.currentGame].player.name) {
+				const game = this.games[this.currentGame];
 				const playerState = game.processAction(action);
-
-				console(true, 'action processed');
 
 				// reportTable
 
 				if (playerState === PlayerConstants.State.STOOD || playerState === PlayerConstants.State.BUST) {
-					changePlayer();
-				} else {
-
+					this.changePlayer();
 				}
-
 			} else {
 				console.log(`WILL NOT HANDLE ${playerName} action ${action}. Not his/her turn`);
 				callback(false, 'Not your turn right now');
@@ -82,8 +77,8 @@ class Table {
 	changePlayer() {
 		this.currentGame++;
 	
-		if (currentGame == this.games.length) {
-			finishGame();
+		if (this.currentGame === this.games.length) {
+			this.finishGame();
 		} else {
 			// reportTable
 		}
@@ -91,10 +86,12 @@ class Table {
 
 	finishGame() {
 		this.games.forEach((game) => {
-			game.finishGame();
+			game.finish();
 		});
 		this.state = TableConstants.State.FINISHED;
 		//reportTable
+
+		this.games = [];
 
 		this.initializeTable();
 	}
