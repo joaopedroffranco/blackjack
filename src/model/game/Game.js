@@ -1,11 +1,13 @@
 /* @flow */
+const PlayerConstants = require('../player/PlayerConstants');
+const GameConstants = require('./GameConstants');
 const Player = require('../player/Player');
 const Dealer = require('../dealer/Dealer');
 
 class Game {
     player: Player;
 	dealer: Dealer;
-	winner: Player | Dealer;
+	winner: GameConstants.WinnerType;
 
 	constructor(player: Player, dealer: Dealer) {
 		this.player = player;
@@ -19,47 +21,29 @@ class Game {
 		this.player.getInitialCardsWith(this.dealer);
 
 		/* se o dealer já tem blackjack, ganhou, se não, o jogador joga */
-		if (this.dealer.hasBlackjack()) {
+		/*if (this.dealer.hasBlackjack()) {
 			this.setWinner(this.dealer);
-		} else {
-			this.play();
-		}
+		}*/
 	}
 
-	play() {
-		while (this.player.isPlaying()) {
-			/* começo de jogo do jogador */
-			this.player.hit(this.dealer);
-
-			/* 50% de chance dele parar (falso learning) */
-			const shouldStand = this.player.isPlaying() && !!!Math.floor(Math.random() * 2)
-			if (shouldStand) this.player.stand();
-
-			/* fim de jogo do jogador */
+	processAction(action: PlayerConstants.ActionType): PlayerConstants.PlayerStateType {
+		if (action === PlayerConstants.Action.HIT) {
+			this.player.hit();
+		} else {
+			this.player.stand();
 		}
-
-		this.setWinner(this.whoWin());
+		return this.player.state;
 	}
 
 	finish() {
-		console.log('------ FINISHED ------');
-		console.log(this.player.toString());
-		console.log(this.dealer.toString());
-		console.log('------ WINNER ------');
-		console.log(`VENCEDOR: ${this.winner.toString()}`);
-	}
-
-	/* Verifica se quem ganhou foi o jogador ou dealer */
-	whoWin() {
 		const playerSum = this.player.pile.sum();
 		const dealerSum = this.dealer.sum();
 		const playerIsWinner = playerSum <= 21 && playerSum > dealerSum;
-		return playerIsWinner ? this.player : this.dealer;
-	}
-
-	setWinner(winner: Player | Dealer) {
-		this.winner = winner;
-		this.finish();
+		if (playerIsWinner) {
+			this.winner = GameConstants.Winner.PLAYER;
+		} else {
+			this.winner = GameConstants.Winner.DEALER;
+		}
 	}
 }
 

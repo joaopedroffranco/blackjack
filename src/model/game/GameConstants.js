@@ -4,8 +4,15 @@ const State = {
     STOPPED: 'Stopped',
 }
 
+const Winner = {
+    PLAYER: 'Player',
+    DEALER: 'Dealer'
+}
+
 type GameStateType = 'Running' | 'Stopped';
+type WinnerType = 'Player' | 'Dealer';
 
 module.exports = {
-    State
+    State,
+    Winner
 }

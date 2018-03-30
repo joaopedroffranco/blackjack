@@ -7,8 +7,16 @@ const State = {
     BLACKJACK: 'Blackjack'
 }
 
+const Action = {
+    HIT = 'Hit',
+    STAND = 'Stand', 
+    REGISTER = 'Register'
+}
+
 type PlayerStateType = 'Waiting' | 'Playing' | 'Stood' | 'Bust' | 'Blackjack';
+type ActionType = 'Hit' | 'Stand' | 'Register';
 
 module.exports = {
-    State
+    State,
+    Action
 }
