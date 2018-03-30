@@ -28,7 +28,7 @@ class Game {
 
 	processAction(action: PlayerConstants.ActionType): PlayerConstants.PlayerStateType {
 		if (action === PlayerConstants.Action.HIT) {
-			this.player.hit();
+			this.player.hit(this.dealer);
 		} else {
 			this.player.stand();
 		}
@@ -39,11 +39,10 @@ class Game {
 		const playerSum = this.player.pile.sum();
 		const dealerSum = this.dealer.sum();
 		const playerIsWinner = playerSum <= 21 && playerSum > dealerSum;
-		if (playerIsWinner) {
-			this.winner = GameConstants.Winner.PLAYER;
-		} else {
-			this.winner = GameConstants.Winner.DEALER;
-		}
+		this.winner = playerIsWinner ? GameConstants.Winner.PLAYER : GameConstants.Winner.DEALER
+		const sumWinner = playerIsWinner ? playerSum : dealerSum;
+		console.log(`Dealer: ${this.dealer}`);
+		console.log(`WINNER: ${this.winner} | ${sumWinner}`);
 	}
 }
 
