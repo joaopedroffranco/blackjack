@@ -4,7 +4,7 @@ const Dealer = require('../dealer/Dealer');
 const Game = require('../game/Game');
 
 class Table {
-    players: Player[];
+    games: Game[];
 	dealer: Dealer;
 
 	constructor(players: Player[]) {
@@ -16,6 +16,7 @@ class Table {
 
 	start() {
 		console.log('------ START TABLE ------');
+		this.dealer.start();
 		this.players.forEach((player) => {
             const game = new Game(player, this.dealer);
             game.start();

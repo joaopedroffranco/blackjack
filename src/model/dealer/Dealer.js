@@ -8,11 +8,12 @@ class Dealer {
     discards: Card[];
     shown: Card;
     hidden: Card;
-    pile: Pile;
 
     constructor() {
+        this.cards = this.generate();
+        this.cards = this.shuffle(this.cards);
+
         this.discards = [];
-		this.cards = this.generate();
     }
 
     /* actions */
@@ -20,15 +21,6 @@ class Dealer {
 	start() {
 		this.shown = this.cards.pop();
         this.hidden = this.cards.pop();
-
-        this.pile = new Pile();
-        this.pile.add(this.shown);
-
-        this.cards = this.shuffle(this.cards);
-    }
-    
-    showHiddenCard() {
-        this.pile.add(this.hidden);
     }
 
 	pick(): Card {
@@ -47,6 +39,14 @@ class Dealer {
         invisiblePile.add(this.hidden);
         const sum = invisiblePile.sum();
         return sum === 21;
+    }
+
+    sum() {
+        const invisiblePile = new Pile();
+        invisiblePile.add(this.shown);
+        invisiblePile.add(this.hidden);
+        const sum = invisiblePile.sum();
+        return sum;
     }
 
 	/* util */
@@ -70,7 +70,7 @@ class Dealer {
     }
 
     toString() {
-		return `Dealer | ${this.pile.toString()}`
+		return `Dealer | ${this.hidden.toString()} - ${this.shown.toString()} | ${this.sum()}`
 	}
 }
 

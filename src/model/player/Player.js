@@ -18,10 +18,8 @@ class Player {
 	}
 
 	getInitialCardsWith(dealer: Dealer) {
-		const picked1 = dealer.pick();
-		const picked2 = dealer.pick();
-		this.get(picked1);
-		this.get(picked2);
+		this.get(dealer.pick());
+		this.get(dealer.pick());
 		console.log(`start with: ${this.pile.toString()}`)
 	}
 

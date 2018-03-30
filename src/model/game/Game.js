@@ -14,15 +14,12 @@ class Game {
 
 	start() {
 		console.log(`------ START GAME ${this.player.name.toUpperCase()} ------`);
-		/* Na primeira rodada, dealer pega duas cartas para si */
-		this.dealer.start();
 
 		/* e da duas cartas para o jogador */
 		this.player.getInitialCardsWith(this.dealer);
 
 		/* se o dealer já tem blackjack, ganhou, se não, o jogador joga */
 		if (this.dealer.hasBlackjack()) {
-			this.dealer.showHiddenCard();
 			this.setWinner(this.dealer);
 		} else {
 			this.play();
@@ -41,7 +38,6 @@ class Game {
 			/* fim de jogo do jogador */
 		}
 
-		this.dealer.showHiddenCard();
 		this.setWinner(this.whoWin());
 	}
 
@@ -56,7 +52,7 @@ class Game {
 	/* Verifica se quem ganhou foi o jogador ou dealer */
 	whoWin() {
 		const playerSum = this.player.pile.sum();
-		const dealerSum = this.dealer.pile.sum();
+		const dealerSum = this.dealer.sum();
 		const playerIsWinner = playerSum <= 21 && playerSum > dealerSum;
 		return playerIsWinner ? this.player : this.dealer;
 	}
