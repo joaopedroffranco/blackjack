@@ -8,9 +8,9 @@ const State = {
 }
 
 const Action = {
-    HIT = 'Hit',
-    STAND = 'Stand', 
-    REGISTER = 'Register'
+    HIT: 'Hit',
+    STAND: 'Stand', 
+    REGISTER: 'Register'
 }
 
 type PlayerStateType = 'Waiting' | 'Playing' | 'Stood' | 'Bust' | 'Blackjack';

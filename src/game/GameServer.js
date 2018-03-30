@@ -5,15 +5,14 @@ const GameConnection = require('./GameConnection');
  
 class GameServer {
 	connections: GameConnection[];
-	table: Table;
 
 	constructor() {
 		this.connections = [];
-		this.table = new Table();
+		const table = new Table(1);
 
 		const server = net.createServer((connection) => { 
 			console.log('A player entered');
-			this.connections.push(new GameConnection(connection));
+			this.connections.push(new GameConnection(connection, table));
 		 });
 
 		 server.listen(3000, () => { 

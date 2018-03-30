@@ -23,16 +23,16 @@ class Table {
 		this.state = TableConstants.State.REGISTERING;
 	}
 
-	register(playerName: String, callback: (success: boolean) => void) {
+	register(playerName: String, callback: (success: boolean, message: string) => void) {
 		if (this.state === TableConstants.State.REGISTERING) {
 			console.log(`REGISTERING PLAYER: ${playerName}`);
 			const player = new Player(playerName);
 			const game = new Game(player, this.dealer);
-			games.push(game);
+			this.games.push(game);
 
 			callback(true, 'Registered');
 
-			if (numberOfPlayers === this.maxNumberOfPlayers) {
+			if (this.games.length === this.maxNumberOfPlayers) {
 				console.log('Finished Registering all Players');
 				this.distributeCards();
 			}

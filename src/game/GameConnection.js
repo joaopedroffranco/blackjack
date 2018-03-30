@@ -1,10 +1,14 @@
 const net = require('net');
+const Table = require('../model/table/Table');
+const PlayerConstants = require('../model/player/PlayerConstants');
  
 class GameConnection {
-    connection;
+	connection;
+	table: Table
 
-	constructor(connection) {
-        this.connection = connection;
+	constructor(connection, table: Table) {
+		this.connection = connection;
+		this.table = table;
 	
         this.connection.on('end', () => {
             console.log('client disconnected');
@@ -19,7 +23,7 @@ class GameConnection {
 		const json = this.parse(data);
 		if (json) {
 			const action = json.action;
-			this.connection.write(`action: ${action}`);
+			this.process(action, json);
 		}
 	}
 
@@ -33,8 +37,28 @@ class GameConnection {
 		return false;
 	}
 
-	process(action) {
-
+	process(action: PlayerConstants.ActionType, json: JSON) {
+		switch (action) {
+		case PlayerConstants.Action.REGISTER:
+			const playerName = json.player.name || 'Jogador';
+			this.table.register(playerName, (success, message) => {
+				this.connection.write(`Player ${playerName} ${message}`);
+			});
+			break;
+		case PlayerConstants.Action.REGISTER:
+			const playerName = json.player.name || 'Jogador';
+			this.table.register(playerName, (success, message) => {
+				this.connection.write(`Player ${playerName} ${message}`);
+			});
+			break;
+		case PlayerConstants.Action.REGISTER:
+			const playerName = json.player.name || 'Jogador';
+			this.table.register(playerName, (success, message) => {
+				this.connection.write(`Player ${playerName} ${message}`);
+			});
+			break;
+		default: break;
+		}
 	}
 
 }
