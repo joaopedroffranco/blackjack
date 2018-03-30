@@ -78,11 +78,10 @@ class Table {
 	}
 
 	changePlayer() {
-		this.currentGame++;
-	
-		if (this.currentGame === this.games.length) {
+		if (this.currentGame === this.games.length - 1) {
 			this.finishGame();
 		} else {
+			this.currentGame++;
 			this.gameServer.updatePlayers();
 		}
 	}
@@ -93,6 +92,7 @@ class Table {
 		});
 		this.state = TableConstants.State.FINISHED;
 		this.gameServer.updatePlayers();
+		this.gameServer.finishConnections();
 
 		this.games = [];
 

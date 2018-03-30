@@ -7,12 +7,11 @@ const Card = require('../model/card/Card');
 const Game = require('../model/game/Game');
 
 class GameFormatter {
-
-    tableToJson(table: Table) {
+    static tableToJson(table: Table) {
         return JSON.stringify(this.formatTable(table))
     }
 
-    formatTable(table: Table) {
+    static formatTable(table: Table) {
         const showHidden = table.state === TableConstants.State.FINISHED;
 
         return {
@@ -23,7 +22,7 @@ class GameFormatter {
         }
     }
     
-    formatPlayers(players: Player[]) {
+    static formatPlayers(players: Player[]) {
         const formattedPlayers = [];
         players.forEach((player) => {
             formattedPlayers.push(this.formatPlayer(player));
@@ -32,14 +31,14 @@ class GameFormatter {
         return formattedPlayers;
     }
 
-    formatPlayer(player: Player) {
+    static formatPlayer(player: Player) {
         return {
             pile: this.formatCards(player.pile.cards),
             state: player.state
         }
     }
     
-    formatDealer(dealer: Dealer, showHidden: boolean) {
+    static formatDealer(dealer: Dealer, showHidden: boolean) {
         if (showHidden) {
             return {
                 shown: this.formatCard(dealer.shown),
@@ -52,7 +51,7 @@ class GameFormatter {
         }
     }
 
-    formatCards(cards: Card[]) {
+    static formatCards(cards: Card[]) {
         const formattedCards = [];
         cards.forEach((card) => {
             formattedCards.push(this.formatCard(card));
@@ -61,14 +60,14 @@ class GameFormatter {
         return formattedCards;
     }
     
-    formatCard(card: Card) {
+    static formatCard(card: Card) {
         return {
             suit: card.suit,
             number: card.number
         }
     }
 
-    extractPlayers(games: Game[]) {
+    static extractPlayers(games: Game[]) {
         const players = [];
         games.forEach((game) => {
             players.push(game.player);

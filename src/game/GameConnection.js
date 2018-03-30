@@ -76,6 +76,11 @@ class GameConnection {
 	sendTableState() {
 		this.connection.write(GameFormatter.tableToJson(this.table));
 	}
+
+	close() {
+		console.log('See you :)');
+		this.connection.destroy();
+	}
 }
 
 module.exports = GameConnection;
