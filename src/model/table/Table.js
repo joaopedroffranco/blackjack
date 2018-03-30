@@ -63,14 +63,9 @@ class Table {
 				const game = this.games[this.currentGame];
 				const playerState = game.processAction(action);
 
-<<<<<<< HEAD
 				console(true, 'action processed');
 
 				this.gameServer.updatePlayers();
-=======
-				// reportTable
->>>>>>> e0e640c6faac5633fd8986f389dbf50bef76f8dd
-
 				if (playerState === PlayerConstants.State.STOOD || playerState === PlayerConstants.State.BUST) {
 					this.changePlayer();
 				}
