@@ -5,22 +5,20 @@ const Card = require('../card/Card');
 const Dealer = require('../dealer/Dealer');
 
 class Player {
-    id: number;
 	name: string;
 	pile: Pile;
     state: PlayerConstants.PlayerStateType;
     
-    constructor(id: number, name: string) {
-        this.id = id;
+    constructor(name: string) {
         this.name = name;
         this.pile = new Pile();
-        this.state = PlayerConstants.State.PLAYING;
 	}
 
 	getInitialCardsWith(dealer: Dealer) {
 		this.get(dealer.pick());
 		this.get(dealer.pick());
-		console.log(`start with: ${this.pile.toString()}`)
+		console.log(`start with: ${this.pile.toString()}`);
+		this.state = PlayerConstants.State.PLAYING;
 	}
 
 	get(card: Card) {
@@ -33,7 +31,6 @@ class Player {
 		console.log(`hit: ${this.pile.toString()}`)
 
 		const currentSum = this.pile.sum();
-		if (currentSum === 21) this.blackjack();
 		if (currentSum > 21) this.bust();
     }
 
@@ -49,11 +46,6 @@ class Player {
 
     waiting() {
         this.state = PlayerConstants.State.WAITING;
-	}
-
-	blackjack() {
-		console.log(`blackjack!! :)`)
-		this.state = PlayerConstants.State.BLACKJACK;
 	}
 
 	isPlaying(): boolean {
