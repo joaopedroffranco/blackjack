@@ -92,7 +92,7 @@ class Table {
 		});
 		this.state = TableConstants.State.FINISHED;
 		this.gameServer.updatePlayers();
-		this.gameServer.finishConnections();
+		this.gameServer.destroyConnections();
 
 		this.games = [];
 
