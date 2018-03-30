@@ -8,8 +8,10 @@ class GameServer {
 
 	constructor() {
 		this.connections = [];
-		const table = new Table(1, this);
+	}
 
+	start() {
+		const table = new Table(1, this);
 		const server = net.createServer((connection) => { 
 			console.log('A player entered');
 			this.connections.push(new GameConnection(connection, table));
