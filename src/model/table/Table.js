@@ -8,17 +8,19 @@ class Table {
 	dealer: Dealer;
 
 	constructor(players: Player[]) {
-		this.players = players;
+		this.games = [];
+		this.dealer = new Dealer();
+		players.forEach((player) => {
+            const game = new Game(player, this.dealer);
+            this.games.push(game);
+        });
 
-		const dealer = new Dealer();
-		this.dealer = dealer;
 	}
 
 	start() {
 		console.log('------ START TABLE ------');
 		this.dealer.start();
-		this.players.forEach((player) => {
-            const game = new Game(player, this.dealer);
+		this.games.forEach((game) => {
             game.start();
             console.log('\n');
         });
