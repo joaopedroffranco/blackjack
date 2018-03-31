@@ -10,7 +10,8 @@ const State = {
 const Action = {
     HIT: 'Hit',
     STAND: 'Stand', 
-    REGISTER: 'Register'
+    REGISTER: 'Register',
+    UPDATEME: 'Update Me'
 }
 
 type PlayerStateType = 'Waiting' | 'Playing' | 'Stood' | 'Bust' | 'Blackjack';
