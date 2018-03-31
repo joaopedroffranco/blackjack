@@ -7,6 +7,7 @@ const Card = require('../model/card/Card');
 const Game = require('../model/game/Game');
 
 class GameFormatter {
+    /* Table */
     static tableToJson(table: Table) {
         return JSON.stringify(this.formatTable(table))
     }
@@ -75,6 +76,25 @@ class GameFormatter {
 
         return players;
     }
+
+    /* JSON Response */
+    static toJson(success, message) {
+        const json = {
+            success: success,
+            message: message
+        };
+        return JSON.stringify(json);
+    }
+
+    static parse(data): any {
+		try {
+			return JSON.parse(data.toString());
+		} catch (e) {
+			return false;
+		}
+
+		return false;
+	}
 }
 
 module.exports = GameFormatter;

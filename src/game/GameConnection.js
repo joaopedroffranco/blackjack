@@ -22,7 +22,7 @@ class GameConnection {
 	}
 	
 	route(data) {
-		const json = this.parse(data);
+		const json = GameFormatter.parse(data);
 		if (json) {
 			const action = json.action;
 			this.process(action, json);
@@ -44,29 +44,17 @@ class GameConnection {
 		case PlayerConstants.Action.REGISTER:
 			this.playerName = json.player.name || 'Jogador';
 			this.table.register(this.playerName, (success, message) => {
-				if (success) {
-					this.connection.write(`Player ${this.playerName}: ${message}`);
-				} else {
-					this.connection.write(`Player ${this.playerName}: fail to ${message}`);
-				}
+				this.connection.write(GameFormatter.toJson(success, message));
 			});
 			break;
 		case PlayerConstants.Action.HIT:
 			this.table.processAction(this.playerName, action, (success, message) => {
-				if (success) {
-					this.connection.write(`Player ${this.playerName}: ${message}`);
-				} else {
-					this.connection.write(`Player ${this.playerName}: fail to ${message}`);
-				}
+				this.connection.write(GameFormatter.toJson(success, message));
 			});
 			break;
 		case PlayerConstants.Action.STAND:
 			this.table.processAction(this.playerName, action, (success, message) => {
-				if (success) {
-					this.connection.write(`Player ${this.playerName}: ${message}`);
-				} else {
-					this.connection.write(`Player ${this.playerName}: fail to ${message}`);
-				}
+				this.connection.write(GameFormatter.toJson(success, message));
 			});
 			break;
 		default: break;
@@ -78,7 +66,6 @@ class GameConnection {
 	}
 
 	close() {
-		console.log('See you :)');
 		this.connection.destroy();
 	}
 }

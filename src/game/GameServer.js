@@ -11,7 +11,7 @@ class GameServer {
 	}
 
 	start() {
-		const table = new Table(2, this);
+		const table = new Table(1, this);
 		const server = net.createServer((connection) => { 
 			console.log('A player entered');
 			this.connections.push(new GameConnection(connection, table));
