@@ -44,7 +44,9 @@ class GameConnection {
 		case PlayerConstants.Action.REGISTER:
 			this.playerName = json.player.name || 'Jogador';
 			this.table.register(this.playerName, (success, message) => {
-				this.connection.write(GameFormatter.toJson(success, message));
+				const jsonMessage = GameFormatter.toJson(success, message);
+				this.connection.write(Buffer.byteLength(jsonMessage, 'utf8') + '');
+				this.connection.write(jsonMessage);
 			});
 			break;
 		case PlayerConstants.Action.HIT:
