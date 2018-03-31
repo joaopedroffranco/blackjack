@@ -34,6 +34,7 @@ class GameFormatter {
 
     static formatPlayer(player: Player) {
         return {
+            name: player.name,
             pile: this.formatCards(player.pile.cards),
             state: player.state
         }
