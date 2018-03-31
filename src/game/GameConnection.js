@@ -44,23 +44,26 @@ class GameConnection {
 		case PlayerConstants.Action.REGISTER:
 			this.playerName = json.player.name || 'Jogador';
 			this.table.register(this.playerName, (success, message) => {
-				const jsonMessage = GameFormatter.toJson(success, message);
-				this.connection.write(Buffer.byteLength(jsonMessage, 'utf8') + '');
-				this.connection.write(jsonMessage);
+				this.sendMessage(GameFormatter.toJson(success, message));
 			});
 			break;
 		case PlayerConstants.Action.HIT:
 			this.table.processAction(this.playerName, action, (success, message) => {
-				this.connection.write(GameFormatter.toJson(success, message));
+				this.sendMessage(GameFormatter.toJson(success, message));
 			});
 			break;
 		case PlayerConstants.Action.STAND:
 			this.table.processAction(this.playerName, action, (success, message) => {
-				this.connection.write(GameFormatter.toJson(success, message));
+				this.sendMessage(GameFormatter.toJson(success, message));
 			});
 			break;
 		default: break;
 		}
+	}
+
+	sendMessage(jsonMessage, connection) {
+		this.connection.write(Buffer.byteLength(jsonMessage, 'utf8') + '');
+		this.connection.write(jsonMessage);
 	}
 
 	sendTableState() {
