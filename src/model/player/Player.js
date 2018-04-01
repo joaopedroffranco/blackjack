@@ -31,6 +31,9 @@ class Player {
 		console.log(`hit: ${this.pile.toString()}`)
 
 		const currentSum = this.pile.sum();
+		// if player went blackjack, we will force him to stand. No one should be that dumb to ask for more cards
+		if (currentSum == 21) this.stand();
+		// if player got more than
 		if (currentSum > 21) this.bust();
     }
 
@@ -42,6 +45,7 @@ class Player {
     bust() {
 		console.log(`bust! :(`)
 		this.state = PlayerConstants.State.BUST;
+		lose();
     }
 
     waiting() {
@@ -52,6 +56,14 @@ class Player {
 		return this.state === PlayerConstants.State.PLAYING;
 	}
 	
+	win() {
+		this.state = PlayerConstants.State.WINNER;
+	}
+
+	lose() {
+		this.state = PlayerConstants.State.LOSER;
+	}
+
 	toString() {
 		return `${this.name} | ${this.pile.toString()}`
 	}

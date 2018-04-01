@@ -54,6 +54,8 @@ class Table {
 		this.games.forEach((game) => {
 			game.start();
 		});
+		console.log('---- THE DEALER HAS DISTRIBUTED THE CARDS -----');
+		console.log(`DEALER'S CARDS: ${this.dealer.toString()}`);
 		
 		this.gameServer.updatePlayers();
 	}
@@ -65,7 +67,7 @@ class Table {
 				const playerState = game.processAction(action);
 
 				this.gameServer.updatePlayers();
-				if (playerState === PlayerConstants.State.STOOD || playerState === PlayerConstants.State.BUST) {
+				if (playerState !== PlayerConstants.State.PLAYING) {
 					this.changePlayer();
 				}
 			} else {

@@ -39,6 +39,11 @@ class Game {
 		const playerSum = this.player.pile.sum();
 		const dealerSum = this.dealer.sum();
 		const playerIsWinner = playerSum <= 21 && playerSum > dealerSum;
+		if (playerIsWinner) {
+			this.player.win();
+		} else {
+			this.player.lose();
+		}
 		this.winner = playerIsWinner ? GameConstants.Winner.PLAYER : GameConstants.Winner.DEALER
 		const sumWinner = playerIsWinner ? playerSum : dealerSum;
 		console.log(`Dealer: ${this.dealer.toString()}`);
