@@ -19,7 +19,8 @@ class GameFormatter {
             state: table.state,
             currentPlayer: table.games[table.currentGame].player.name,
             players: this.formatPlayers(this.extractPlayers(table.games)),
-            dealer: this.formatDealer(table.dealer, showHidden)
+            dealer: this.formatDealer(table.dealer, showHidden),
+            type: 'Table'
         }
     }
     
@@ -82,7 +83,8 @@ class GameFormatter {
     static toJson(success, message) {
         const json = {
             success: success,
-            message: message
+            message: message,
+            type: 'Response'
         };
         return JSON.stringify(json);
     }

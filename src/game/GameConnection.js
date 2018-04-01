@@ -62,12 +62,12 @@ class GameConnection {
 	}
 
 	sendMessage(jsonMessage, connection) {
-		this.connection.write(Buffer.byteLength(jsonMessage, 'utf8') + '');
+		this.connection.write(Buffer.byteLength(jsonMessage, 'utf8') + '#');
 		this.connection.write(jsonMessage);
 	}
 
 	sendTableState() {
-		this.connection.write(GameFormatter.tableToJson(this.table));
+		this.sendMessage(GameFormatter.tableToJson(this.table));
 	}
 
 	close() {
