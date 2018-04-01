@@ -45,7 +45,7 @@ class Player {
     bust() {
 		console.log(`bust! :(`)
 		this.state = PlayerConstants.State.BUST;
-		lose();
+		this.lose();
     }
 
     waiting() {
