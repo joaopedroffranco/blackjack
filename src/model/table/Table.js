@@ -25,6 +25,7 @@ class Table {
 	initializeTable() {
 		console.log(`Dealer is waiting for players. Need ${this.numberOfPlayers}`);
 		this.state = TableConstants.State.REGISTERING;
+		this.currentGame = 0;
 	}
 
 	register(playerName: string, callback: (success: boolean, message: string) => void) {
@@ -39,6 +40,9 @@ class Table {
 			if (this.games.length === this.numberOfPlayers) {
 				console.log('Finished Registering all Players');
 				this.distributeCards();
+			} else {
+				// informing all players of the current state
+				this.gameServer.updatePlayers();
 			}
 		} else {
 			console.log(`WILL NOT REGISTER PLAYER: ${playerName}. Not registering players right now`);
@@ -50,7 +54,6 @@ class Table {
 		console.log('Distributing Cards');
 		this.dealer.start();
 		this.state = TableConstants.State.PLAYING;
-		this.currentGame = 0;
 		this.games.forEach((game) => {
 			game.start();
 		});

@@ -13,6 +13,21 @@ class GameFormatter {
     }
 
     static formatTable(table: Table) {
+        if (table.state === TableConstants.State.REGISTERING) {
+            return this.formatRegisteringTable(table);
+        } else {
+            return this.formatPlayingTable(table);
+        }
+    }
+
+    static formatRegisteringTable(table: Table) {
+        return {
+            state: table.state,
+            type: 'Table'
+        }
+    }
+
+    static formatPlayingTable(table: Table) {
         const showHidden = table.state === TableConstants.State.FINISHED;
 
         return {
