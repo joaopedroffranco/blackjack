@@ -9,20 +9,21 @@ const GameServer = require('../../game/GameServer');
 class Table {
 	state: TableConstants.StateType;
 	currentGame: number;  
-	maxNumberOfPlayers: number;
+	numberOfPlayers: number;
     games: Game[];
 	dealer: Dealer;
 	gameServer: GameServer;
 
-	constructor(maxNumberOfPlayers: number, gameServer: GameServer) {
+	constructor(numberOfPlayers: number, gameServer: GameServer) {
 		this.gameServer = gameServer;
 		this.games = [];
 		this.dealer = new Dealer();
-		this.maxNumberOfPlayers = maxNumberOfPlayers;
+		this.numberOfPlayers = numberOfPlayers;
 		this.initializeTable();
 	}
 
 	initializeTable() {
+		console.log(`Dealer is waiting for players. Need ${this.numberOfPlayers}`);
 		this.state = TableConstants.State.REGISTERING;
 	}
 
@@ -35,7 +36,7 @@ class Table {
 
 			callback(true, 'Registered');
 
-			if (this.games.length === this.maxNumberOfPlayers) {
+			if (this.games.length === this.numberOfPlayers) {
 				console.log('Finished Registering all Players');
 				this.distributeCards();
 			}
@@ -87,6 +88,7 @@ class Table {
 	}
 
 	finishGame() {
+		console.log('---- GAME HAS ENDED. NEW GAME WILL START ----')
 		this.games.forEach((game) => {
 			game.finish();
 		});

@@ -13,12 +13,12 @@ class GameServer {
 	start() {
 		const table = new Table(1, this);
 		const server = net.createServer((connection) => { 
-			console.log('A player entered');
+			console.log('New client connection');
 			this.connections.push(new GameConnection(connection, table));
 		 });
 
 		 server.listen('3000', () => { 
-			console.log('Dealer is waiting for players...');
+			console.log('Blackjack server has started!');
 		 });
 	}
 
@@ -32,6 +32,7 @@ class GameServer {
 		this.connections.forEach((connection) => {
 			connection.close();
 		});
+		this.connections = []
 	}
 
 }
