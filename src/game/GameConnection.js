@@ -33,18 +33,18 @@ class GameConnection {
 		switch (action) {
 		case PlayerConstants.Action.REGISTER:
 			this.playerName = json.player.name || 'Jogador';
-			this.table.register(this.playerName, async (success, message) => {
-				await this.connection.write(GameFormatter.toJson(success, message));
+			this.table.register(this.playerName, (success, message) => {
+				this.sendMessage(GameFormatter.toJson(success, message));
 			});
 			break;
 		case PlayerConstants.Action.HIT:
-			this.table.processAction(this.playerName, action, async (success, message) => {
-				await this.connection.write(GameFormatter.toJson(success, message));
+			this.table.processAction(this.playerName, action, (success, message) => {
+				this.sendMessage(GameFormatter.toJson(success, message));
 			});
 			break;
 		case PlayerConstants.Action.STAND:
-			this.table.processAction(this.playerName, action, async (success, message) => {
-				await this.connection.write(GameFormatter.toJson(success, message));
+			this.table.processAction(this.playerName, action, (success, message) => {
+				this.sendMessage(GameFormatter.toJson(success, message));
 			});
 			break;
 			case PlayerConstants.Action.UPDATEME:
@@ -54,8 +54,13 @@ class GameConnection {
 		}
 	}
 
-	async sendTableState() {
-		await this.connection.write(GameFormatter.tableToJson(this.table));
+	sendMessage(jsonMessage, connection) {
+		this.connection.write(Buffer.byteLength(jsonMessage, 'utf8') + '#');
+		this.connection.write(jsonMessage);
+	}
+
+	sendTableState() {
+		this.sendMessage(GameFormatter.tableToJson(this.table));
 	}
 
 	close() {

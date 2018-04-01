@@ -4,7 +4,9 @@ const State = {
     PLAYING: 'Playing',
     STOOD: 'Stood',
     BUST: 'Bust',
-    BLACKJACK: 'Blackjack'
+    BLACKJACK: 'BlackJack',
+    WINNER: 'Winner',
+    LOSER: 'Loser'
 }
 
 const Action = {
@@ -14,7 +16,7 @@ const Action = {
     UPDATEME: 'Update Me'
 }
 
-type PlayerStateType = 'Waiting' | 'Playing' | 'Stood' | 'Bust' | 'Blackjack';
+type PlayerStateType = 'Waiting' | 'Playing' | 'Stood' | 'Bust' | 'BlackJack'| 'Winner' | 'Loser';
 type ActionType = 'Hit' | 'Stand' | 'Register';
 
 module.exports = {

@@ -9,21 +9,23 @@ const GameServer = require('../../game/GameServer');
 class Table {
 	state: TableConstants.StateType;
 	currentGame: number;  
-	maxNumberOfPlayers: number;
+	numberOfPlayers: number;
     games: Game[];
 	dealer: Dealer;
 	gameServer: GameServer;
 
-	constructor(maxNumberOfPlayers: number, gameServer: GameServer) {
+	constructor(numberOfPlayers: number, gameServer: GameServer) {
 		this.gameServer = gameServer;
 		this.games = [];
 		this.dealer = new Dealer();
-		this.maxNumberOfPlayers = maxNumberOfPlayers;
+		this.numberOfPlayers = numberOfPlayers;
 		this.initializeTable();
 	}
 
 	initializeTable() {
+		console.log(`Dealer is waiting for players. Need ${this.numberOfPlayers}`);
 		this.state = TableConstants.State.REGISTERING;
+		this.currentGame = 0;
 	}
 
 	register(playerName: string, callback: (success: boolean, message: string) => void) {
@@ -35,9 +37,12 @@ class Table {
 
 			callback(true, 'Registered');
 
-			if (this.games.length === this.maxNumberOfPlayers) {
+			if (this.games.length === this.numberOfPlayers) {
 				console.log('Finished Registering all Players');
 				this.distributeCards();
+			} else {
+				// informing all players of the current state
+				this.gameServer.updatePlayers();
 			}
 		} else {
 			console.log(`WILL NOT REGISTER PLAYER: ${playerName}. Not registering players right now`);
@@ -49,10 +54,11 @@ class Table {
 		console.log('Distributing Cards');
 		this.dealer.start();
 		this.state = TableConstants.State.PLAYING;
-		this.currentGame = 0;
 		this.games.forEach((game) => {
 			game.start();
 		});
+		console.log('---- THE DEALER HAS DISTRIBUTED THE CARDS -----');
+		console.log(`DEALER'S CARDS: ${this.dealer.toString()}`);
 		
 		this.gameServer.updatePlayers();
 	}
@@ -64,7 +70,7 @@ class Table {
 				const playerState = game.processAction(action);
 
 				this.gameServer.updatePlayers();
-				if (playerState === PlayerConstants.State.STOOD || playerState === PlayerConstants.State.BUST) {
+				if (playerState !== PlayerConstants.State.PLAYING) {
 					this.changePlayer();
 				}
 			} else {
@@ -87,6 +93,7 @@ class Table {
 	}
 
 	finishGame() {
+		console.log('---- GAME HAS ENDED. NEW GAME WILL START ----')
 		this.games.forEach((game) => {
 			game.finish();
 		});
