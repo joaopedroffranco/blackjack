@@ -29,16 +29,6 @@ class GameConnection {
 		}
 	}
 
-	parse(data): any {
-		try {
-			return JSON.parse(data.toString());
-		} catch (e) {
-			return false;
-		}
-
-		return false;
-	}
-
 	process(action: PlayerConstants.ActionType, json: JSON) {
 		switch (action) {
 		case PlayerConstants.Action.REGISTER:
@@ -56,6 +46,9 @@ class GameConnection {
 			this.table.processAction(this.playerName, action, (success, message) => {
 				this.sendMessage(GameFormatter.toJson(success, message));
 			});
+			break;
+			case PlayerConstants.Action.UPDATEME:
+				this.sendTableState()
 			break;
 		default: break;
 		}
