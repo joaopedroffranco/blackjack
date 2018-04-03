@@ -95,7 +95,7 @@ class GameFormatter {
     }
 
     /* JSON Response */
-    static toJson(success, message) {
+    static toJson(success: boolean, message: string) {
         const json = {
             success: success,
             message: message,
@@ -104,14 +104,12 @@ class GameFormatter {
         return JSON.stringify(json);
     }
 
-    static parse(data): any {
+    static parse(data: any): any {
 		try {
 			return JSON.parse(data.toString());
 		} catch (e) {
 			return false;
 		}
-
-		return false;
 	}
 }
 
