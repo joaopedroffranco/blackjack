@@ -49,8 +49,16 @@ class Dealer {
         return sum;
     }
 
-	/* util */
     generate(): Card[] {
+        let cards = [];
+        for (let j = 0; j < 6; j++) {
+            cards = cards.concat(this.generateDeck());
+        }
+
+        return cards;
+    }
+
+    generateDeck(): Card[] {
         const cards = [];
         const cardSuits = [CardConstants.Suit.SPADES, CardConstants.Suit.HEARTS, CardConstants.Suit.CLUBS, CardConstants.Suit.DIAMONDS];
         for (let j = 0; j < 4; j++) {
