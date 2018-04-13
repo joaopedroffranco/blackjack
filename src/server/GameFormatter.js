@@ -59,12 +59,14 @@ class GameFormatter {
     static formatDealer(dealer: Dealer, showHidden: boolean) {
         if (showHidden) {
             return {
+                id: dealer.id,
                 shown: this.formatCard(dealer.shown),
                 hidden: this.formatCard(dealer.hidden)
             }
         } else {
             return {
-                shown: this.formatCard(dealer.shown),
+                id: dealer.id,
+                shown: this.formatCard(dealer.shown)
             }
         }
     }

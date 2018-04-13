@@ -17,13 +17,15 @@ class Table {
 	constructor(numberOfPlayers: number, gameServer: GameServer) {
 		this.gameServer = gameServer;
 		this.games = [];
-		this.dealer = new Dealer();
 		this.numberOfPlayers = numberOfPlayers;
-		this.initializeTable();
+		this.initializeTable(true);
 	}
 
-	initializeTable() {
+	initializeTable(refreshDealerDeck: boolean) {
 		console.log(`Dealer is waiting for players. Need ${this.numberOfPlayers}`);
+		if (refreshDealerDeck) {
+			this.dealer = new Dealer();
+		}
 		this.state = TableConstants.State.REGISTERING;
 		this.currentGame = 0;
 	}
@@ -103,7 +105,7 @@ class Table {
 
 		this.games = [];
 
-		this.initializeTable();
+		this.initializeTable(this.dealer.deckCount() <= 50);
 	}
 }
 

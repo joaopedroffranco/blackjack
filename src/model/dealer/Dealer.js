@@ -4,12 +4,14 @@ const CardConstants = require('../card/CardConstants');
 const Pile = require('../pile/Pile');
 
 class Dealer {
+    id: int
     cards: Card[];
     discards: Card[];
     shown: Card;
     hidden: Card;
 
     constructor() {
+        this.id = Math.round(Math.random() * 10000)
         this.cards = this.generate();
         this.cards = this.shuffle(this.cards);
 
@@ -47,6 +49,10 @@ class Dealer {
         invisiblePile.add(this.hidden);
         const sum = invisiblePile.sum();
         return sum;
+    }
+
+    deckCount() {
+        return this.cards.length
     }
 
     generate(): Card[] {
