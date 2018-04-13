@@ -4,7 +4,7 @@ const PlayerConstants = require('../player/PlayerConstants');
 const Player = require('../player/Player');
 const Dealer = require('../dealer/Dealer');
 const Game = require('../game/Game');
-const GameServer = require('../../game/GameServer');
+const GameServer = require('../../server/GameServer');
 
 class Table {
 	state: TableConstants.StateType;
